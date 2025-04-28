@@ -1,42 +1,41 @@
+import React, { useState } from 'react';
 import Icon from '@mdi/react';
 import { mdiTicketConfirmation } from '@mdi/js';
 
 function Navbar() {
+    const [activeDay, setActiveDay] = useState(null);
+    const days = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
+    
     return (
-        <>
-            <div className='flex justify-between m-5 gap-5'>
-                <div className="w-40 outline-2 rounded-xl flex justify-center items-center gap-2 text-center ">
-                    <Icon path={mdiTicketConfirmation} size={1} />
-                    <h1 className="relative bottom-0.25 text-lg font-bold uppercase">Tikera</h1>
+        <div className="bg-gradient-to-r from-indigo-900 to-purple-800 rounded-xl px-6 py-4 m-5">
+            <div className='flex justify-between items-center'>
+                <div className="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-xl transition-all duration-300 hover:bg-white/20 hover:cursor-pointer">
+                    <div className="bg-white p-2 rounded-full shadow-md">
+                        <Icon path={mdiTicketConfirmation} size={1} className="text-purple-700" />
+                    </div>
+                    <h1 className="text-xl font-bold uppercase text-white tracking-wider">Tikera</h1>
                 </div>
-                <div className='bg-neutral-800 rounded-xl flex flex-col justify-center'>
-                    <ul className="px-10 h-15 uppercase rounded-lg flex items-center gap-5">
-                        <li className='hover:cursor-pointer hover:font-bold hover:bg-neutral-700 rounded-xl p-3 w-35 text-center'>
-                            Hétfő
-                        </li>
-                        <li className='hover:cursor-pointer hover:font-bold hover:bg-neutral-700 rounded-xl p-3 w-35 text-center'>
-                            Kedd
-                        </li>
-                        <li className='hover:cursor-pointer hover:font-bold hover:bg-neutral-700 rounded-xl p-3 w-35 text-center'>
-                            Szerda
-                        </li>
-                        <li className='hover:cursor-pointer hover:font-bold hover:bg-neutral-700 rounded-xl p-3 w-35 text-center'>
-                            Csütörtök
-                        </li>
-                        <li className='hover:cursor-pointer hover:font-bold hover:bg-neutral-700 rounded-xl p-3 w-35 text-center'>
-                            Péntek
-                        </li>
-                        <li className='hover:cursor-pointer hover:font-bold hover:bg-neutral-700 rounded-xl p-3 w-35 text-center'>
-                            Szombat
-                        </li>
-                        <li className='hover:cursor-pointer hover:font-bold hover:bg-neutral-700 rounded-xl p-3 w-35 text-center'>
-                            Vasárnap
-                        </li>
+                
+                <div className='bg-white/10 rounded-xl px-3 py-2 shadow-inner'>
+                    <ul className="flex items-center gap-3">
+                        {days.map((day) => (
+                            <li 
+                                key={day}
+                                onClick={() => setActiveDay(day)}
+                                className={`px-5 py-2 w-25 rounded-lg transition-all duration-100 hover:cursor-pointer text-center
+                                    ${activeDay === day 
+                                        ? 'bg-white text-purple-900 shadow-md' 
+                                        : 'text-white hover:bg-white/20'
+                                    }`}
+                            >
+                                {day}
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
-        </>
-    )
+        </div>
+    );
 }
 
 export default Navbar;
