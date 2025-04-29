@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
 import Icon from '@mdi/react';
 import { mdiTicketConfirmation } from '@mdi/js';
 
-function Navbar() {
-    const [activeDay, setActiveDay] = useState(null);
+function Navbar({ activeDay, setActiveDay }) {
     const days = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
     
     return (
