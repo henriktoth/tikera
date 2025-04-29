@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar.jsx'
-import MovieCard from './components/MovieCard.jsx'
+import MovieList from './components/MovieList.jsx'
 
 function App() {
   const [activeDay, setActiveDay] = useState();
+  const [activeMovie, setActiveMovie] = useState();
+
   return (
     <>
       <Navbar activeDay = {activeDay} setActiveDay = {setActiveDay} />
@@ -12,7 +14,8 @@ function App() {
             <h2 className="text-center font-bold uppercase  tracking-wide">{activeDay}</h2>
       </div>
       : null}
-      <MovieCard image="dune.jpg" name="Dune: Part Two" genre="Sci-Fi" runtime="113 perc"/>
+      <MovieList activeDay={activeDay}/>
+
     </>
     
     

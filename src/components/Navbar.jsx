@@ -2,7 +2,7 @@ import Icon from '@mdi/react';
 import { mdiTicketConfirmation } from '@mdi/js';
 
 function Navbar({ activeDay, setActiveDay }) {
-    const days = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     
     return (
         <div className="bg-gradient-to-r from-indigo-900 to-purple-800 rounded-xl px-6 py-4 m-5">
@@ -20,7 +20,7 @@ function Navbar({ activeDay, setActiveDay }) {
                             <li 
                                 key={day}
                                 onClick={() => setActiveDay(day)}
-                                className={`px-5 py-2 w-25 rounded-lg transition-all duration-100 hover:cursor-pointer text-center
+                                className={`px-5 py-2 w-35 rounded-lg transition-all duration-100 hover:cursor-pointer text-center
                                     ${activeDay === day 
                                         ? 'bg-white text-purple-900 shadow-md' 
                                         : 'text-white hover:bg-white/20'
