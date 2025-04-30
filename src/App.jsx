@@ -13,14 +13,15 @@ function App() {
     <>
       <Navbar activeDay = {activeDay} setActiveDay = {setActiveDay} />
       {activeDay ? 
-       <ActiveDayBadge activeDay={activeDay}/>
+        <ActiveDayBadge activeDay={activeDay}/>
       : null}
-      <div className='flex gap-5'>
+      <div className='flex gap-3'>
         <MovieList activeDay={activeDay} setActiveMovie={setActiveMovie} activeMovie={activeMovie}/>
         {activeMovie ?
-        <MovieDetailsCard activeMovie={activeMovie}/>
+          <MovieDetailsCard activeMovie={activeMovie} activeDay={activeDay}/>
         : null}
       </div>
+
     </>
     
     
