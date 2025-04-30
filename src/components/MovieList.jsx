@@ -13,7 +13,7 @@ function MovieList(props){
         setFilteredMovies(filtered)
     }, [props.activeDay])
     return(
-        <div className="flex flex-wrap w-[50%]">
+        <div className="flex flex-wrap w-full lg:w-[50%]">
             {filteredMovies.map(movie => (
                 <MovieCard 
                     key={movie.title} 
