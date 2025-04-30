@@ -21,6 +21,7 @@ function MovieList(props){
                     name={movie.title} 
                     genre={movie.genre} 
                     runtime={movie.duration}
+                    onClick={() => {props.setActiveMovie(movie)}}
                 />
                 )
             )}

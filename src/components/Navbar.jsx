@@ -1,7 +1,7 @@
 import Icon from '@mdi/react';
 import { mdiTicketConfirmation } from '@mdi/js';
 
-function Navbar({ activeDay, setActiveDay }) {
+function Navbar(props) {
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     
     return (
@@ -16,12 +16,12 @@ function Navbar({ activeDay, setActiveDay }) {
                 
                 <div className='bg-white/10 rounded-xl px-3 py-2 shadow-inner'>
                     <ul className="flex items-center gap-3">
-                        {days.map((day) => (
+                        {days.map( day => (
                             <li 
                                 key={day}
-                                onClick={() => setActiveDay(day)}
+                                onClick={() => props.setActiveDay(day)}
                                 className={`px-5 py-2 w-35 rounded-lg transition-all duration-100 hover:cursor-pointer text-center
-                                    ${activeDay === day 
+                                    ${props.activeDay === day 
                                         ? 'bg-white text-purple-900 shadow-md' 
                                         : 'text-white hover:bg-white/20'
                                     }`}

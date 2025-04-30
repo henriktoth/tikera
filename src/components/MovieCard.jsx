@@ -1,14 +1,14 @@
 import {useState, useEffect} from 'react';
-import movieImage from '../assets/images/civil-war.jpg';
+import defaultMovieImage from '../assets/images/civil-war.jpg';
 
 
 function MovieCard(props) {
-    const [imageSource, setImageSource] = useState(movieImage);
+    const [imageSource, setImageSource] = useState(defaultMovieImage);
 
     useEffect(() => {
         if (props.image){
-            import(`../assets/images/${props.image}`)
-                .then((module)=>{
+            import(/* @vite-ignore */`../assets/images/${props.image}`)
+                .then( module =>{
                     setImageSource(module.default);
                 })
                 .catch((error) => {
@@ -17,7 +17,8 @@ function MovieCard(props) {
         }
     }, [props.image]); 
     return(
-        <div className="m-5 p-2 bg-neutral-800/50 rounded-xl w-60 hover:outline-2 hover:outline-purple-800 hover:cursor-pointer">
+        <div className="m-5 p-2 bg-neutral-800/50 rounded-xl w-60 hover:outline-2 hover:outline-purple-800 hover:cursor-pointer"
+             onClick={props.onClick}>
             <img src={imageSource} alt="" className="w-59 rounded-xl" />
             <h3 className="mt-2 font-bold">{props.name}</h3>
             <div className='text-sm flex gap-5 text-neutral-500'>
