@@ -20,10 +20,10 @@ function MovieDetailsCard(props){
     },[props.activeMovie, props.activeDay])
 
     return (
-        <div className="bg-neutral-800/50 flex h-85 mr-5 p-3 rounded-xl">
-            <div className="flex md:flex-row flex-col gap-5">
+        <div className="bg-neutral-800/50 mr-5 p-3 max-w-200 rounded-xl h-fit self-start">
+            <div className="flex gap-5">
                 <img src={imageSource} alt="" className="w-50 rounded-xl shadow-xl"/>
-                <div className="">
+                <div>
                     <h3 className="text-4xl font-bold my-1">{props.activeMovie.title}</h3>
                     <p className="text-neutral-500 my-1">{props.activeMovie.release_year}</p>
                     <p className="text-justify">{props.activeMovie.description}</p>
