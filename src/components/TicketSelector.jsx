@@ -1,87 +1,100 @@
 import { useState } from 'react';
 
-function TicketSelector(){
-    const [adultTicketCount, setadultTicketCount] = useState(0);
-    const [studentTicketCount, setstudentTicketCount] = useState(0);
-    const [seniorTicketCount, setseniorTicketCount] = useState(0);
-
+function TicketSelector({ ticketCounts, updateTicketCounts, selectedSeats }) {
+    const TICKET_PRICES = {
+        adult: 2500,
+        student: 2000,
+        senior: 1800
+    };
+    
+    const totalTickets = ticketCounts.adult + ticketCounts.student + ticketCounts.senior;
+    
     return (
         <div className="flex flex-col gap-5">
             <div className="flex gap-4 items-center">
                 <div className="w-24">
                     <p>Felnőtt</p>
-                    <p className="text-sm text-neutral-500">2.500Ft</p>
+                    <p className="text-sm text-neutral-500">{TICKET_PRICES.adult.toLocaleString()}Ft</p>
                 </div>
                 <div className="flex flex-row justify-center items-center gap-2">
                     <button
-                        className="w-8 px-0 py-2 rounded-lg bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer"
-                        onClick={() => setadultTicketCount(adultTicketCount > 0 ? adultTicketCount - 1 : 0)}
+                        className="w-8 px-0 py-2 rounded-lg bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                        onClick={() => updateTicketCounts('adult', ticketCounts.adult > 0 ? ticketCounts.adult - 1 : 0)}
+                        disabled={selectedSeats.length > totalTickets - 1 && ticketCounts.adult > 0}
                     >
                         -
                     </button>
-                    <p className="w-6 text-center">{adultTicketCount}</p>
+                    <p className="w-6 text-center">{ticketCounts.adult}</p>
                     <button
                         className="w-8 px-0 py-2 rounded-lg bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer"
-                        onClick={() => setadultTicketCount(adultTicketCount + 1)}
+                        onClick={() => updateTicketCounts('adult', ticketCounts.adult + 1)}
                     >
                         +
                     </button>
                 </div>
             </div>
+            
             <div className="flex gap-4 items-center">
                 <div className="w-24">
                     <p>Diák</p>
-                    <p className="text-sm text-neutral-500">2.000Ft</p>
+                    <p className="text-sm text-neutral-500">{TICKET_PRICES.student.toLocaleString()}Ft</p>
                 </div>
                 <div className="flex flex-row justify-center items-center gap-2">
                     <button
-                        className="w-8 px-0 py-2 rounded-lg bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer"
-                        onClick={() => setstudentTicketCount(studentTicketCount > 0 ? studentTicketCount - 1 : 0)}
+                        className="w-8 px-0 py-2 rounded-lg bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                        onClick={() => updateTicketCounts('student', ticketCounts.student > 0 ? ticketCounts.student - 1 : 0)}
+                        disabled={selectedSeats.length > totalTickets - 1 && ticketCounts.student > 0}
                     >
                         -
                     </button>
-                    <p className="w-6 text-center">{studentTicketCount}</p>
+                    <p className="w-6 text-center">{ticketCounts.student}</p>
                     <button
                         className="w-8 px-0 py-2 rounded-lg bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer"
-                        onClick={() => setstudentTicketCount(studentTicketCount + 1)}
+                        onClick={() => updateTicketCounts('student', ticketCounts.student + 1)}
                     >
                         +
                     </button>
                 </div>
             </div>
+            
             <div className="flex gap-4 items-center">
                 <div className="w-24">
                     <p>Nyugdíjas</p>
-                    <p className="text-sm text-neutral-500">1.800Ft</p>
+                    <p className="text-sm text-neutral-500">{TICKET_PRICES.senior.toLocaleString()}Ft</p>
                 </div>
                 <div className="flex flex-row justify-center items-center gap-2">
                     <button
-                        className="w-8 px-0 py-2 rounded-lg bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer"
-                        onClick={() => setseniorTicketCount(seniorTicketCount > 0 ? seniorTicketCount - 1 : 0)}
+                        className="w-8 px-0 py-2 rounded-lg bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                        onClick={() => updateTicketCounts('senior', ticketCounts.senior > 0 ? ticketCounts.senior - 1 : 0)}
+                        disabled={selectedSeats.length > totalTickets - 1 && ticketCounts.senior > 0}
                     >
                         -
                     </button>
-                    <p className="w-6 text-center">{seniorTicketCount}</p>
+                    <p className="w-6 text-center">{ticketCounts.senior}</p>
                     <button
                         className="w-8 px-0 py-2 rounded-lg bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer"
-                        onClick={() => setseniorTicketCount(seniorTicketCount + 1)}
+                        onClick={() => updateTicketCounts('senior', ticketCounts.senior + 1)}
                     >
                         +
                     </button>
                 </div>
             </div>
+            
             <hr className="text-neutral-700"></hr>
             <div className="flex justify-between">
-            <p>Összesen:</p>
-            <p>{adultTicketCount * 2500 + studentTicketCount * 2000 + seniorTicketCount *1800} Ft</p>
+                <p>Összesen:</p>
+                <p>
+                    {ticketCounts.adult * TICKET_PRICES.adult +
+                     ticketCounts.student * TICKET_PRICES.student +
+                     ticketCounts.senior * TICKET_PRICES.senior} Ft
+                </p>
             </div>
-            {adultTicketCount + studentTicketCount + seniorTicketCount > 0 ? (
+            {totalTickets > 0 ? (
                 <div className="flex justify-center gap-1">
-                <p>Ülőhelyek:</p>
-                <p> 0/{adultTicketCount+studentTicketCount+seniorTicketCount}</p>
-            </div>    
+                    <p>Ülőhelyek:</p>
+                    <p> {selectedSeats.length}/{totalTickets}</p>
+                </div>    
             ) : null}
-            
         </div>
     )
 }
