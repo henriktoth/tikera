@@ -4,6 +4,7 @@ import ActiveDayBadge from './components/ActiveDayBadge.jsx'
 import MovieList from './components/MovieList.jsx'
 import MovieDetailsCard from './components/MovieDetailsCard.jsx'
 import SeatingPlan from './components/SeatingPlan.jsx'
+import TicketSelector from './components/TicketSelector.jsx'
 
 function App() {
   const [activeDay, setActiveDay] = useState();
@@ -30,7 +31,7 @@ function App() {
           : null}
           {activeScreening.start_time ?
             <div className='bg-neutral-800/50 flex flex-row p-3 max-w-200 rounded-xl h-fit self-start'>
-              <div>ticket_buy_component</div>
+              <TicketSelector></TicketSelector>
               <div className="border-r border-neutral-700 mx-4"></div>
               <SeatingPlan activeScreening={activeScreening} />
             </div>
