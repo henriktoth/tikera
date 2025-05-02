@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-
+import Icon from '@mdi/react';
+import { mdiSeat } from '@mdi/js';
 
 function SeatingPlan(props){
     const [seats, setSeats] = useState([[]])
@@ -33,9 +34,9 @@ function SeatingPlan(props){
                         {row.map((seat, seatIndex) => (
                             <div
                                 key={seatIndex}
-                                className={`w-6 h-6 flex items-center justify-center border border-gray-300 rounded font-bold ${seat === 1 ? "bg-green-500 text-white" : "bg-gray-200"}`}
+                                className={`w-7 h-7 flex justify-center items-center`}
                             >
-                                {seat}
+                                <Icon path={mdiSeat} size={1} className={`${seat === 1 ? "text-indigo-500/20" : "text-indigo-500"}`} />
                             </div>
                         ))}
                     </div>
