@@ -16,160 +16,17 @@
           },
           "weekday": "Monday",
           "start_time": "17:45",
-          "bookings": [
-            {
-              "row": 3,
-              "seat": 7
-            },
-            {
-              "row": 6,
-              "seat": 1
-            },
-            {
-              "row": 5,
-              "seat": 6
-            },
-            {
-              "row": 5,
-              "seat": 2
-            },
-            {
-              "row": 2,
-              "seat": 8
-            },
-            {
-              "row": 1,
-              "seat": 6
-            },
-            {
-              "row": 5,
-              "seat": 7
-            },
-            {
-              "row": 4,
-              "seat": 5
-            },
-            {
-              "row": 9,
-              "seat": 7
-            },
-            {
-              "row": 9,
-              "seat": 9
-            },
-            {
-              "row": 5,
-              "seat": 5
-            },
-            {
-              "row": 2,
-              "seat": 5
-            },
-            {
-              "row": 8,
-              "seat": 1
-            },
-            {
-              "row": 8,
-              "seat": 6
-            },
-            {
-              "row": 4,
-              "seat": 4
-            },
-            {
-              "row": 2,
-              "seat": 2
-            },
-            {
-              "row": 1,
-              "seat": 2
-            },
-            {
-              "row": 8,
-              "seat": 9
-            },
-            {
-              "row": 4,
-              "seat": 1
-            },
-            {
-              "row": 9,
-              "seat": 1
-            },
-            {
-              "row": 1,
-              "seat": 5
-            },
-            {
-              "row": 3,
-              "seat": 3
-            },
-            {
-              "row": 6,
-              "seat": 9
-            },
-            {
-              "row": 1,
-              "seat": 1
-            },
-            {
-              "row": 8,
-              "seat": 5
-            },
-            {
-              "row": 8,
-              "seat": 7
-            },
-            {
-              "row": 3,
-              "seat": 8
-            },
-            {
-              "row": 8,
-              "seat": 2
-            },
-            {
-              "row": 4,
-              "seat": 6
-            },
-            {
-              "row": 5,
-              "seat": 3
-            },
-            {
-              "row": 2,
-              "seat": 3
-            },
-            {
-              "row": 9,
-              "seat": 6
-            },
-            {
-              "row": 3,
-              "seat": 4
-            },
-            {
-              "row": 5,
-              "seat": 9
-            },
-            {
-              "row": 6,
-              "seat": 5
-            },
-            {
-              "row": 7,
-              "seat": 2
-            },
-            {
-              "row": 2,
-              "seat": 7
-            },
-            {
-              "row": 7,
-              "seat": 7
-            }
-          ]
+            "bookings": [
+            { "row": 1, "seat": 1 }, { "row": 1, "seat": 2 }, { "row": 1, "seat": 3 }, { "row": 1, "seat": 4 }, { "row": 1, "seat": 5 }, { "row": 1, "seat": 6 }, { "row": 1, "seat": 7 }, { "row": 1, "seat": 8 }, { "row": 1, "seat": 9 },
+            { "row": 2, "seat": 1 }, { "row": 2, "seat": 2 }, { "row": 2, "seat": 3 }, { "row": 2, "seat": 4 }, { "row": 2, "seat": 5 }, { "row": 2, "seat": 6 }, { "row": 2, "seat": 7 }, { "row": 2, "seat": 8 }, { "row": 2, "seat": 9 },
+            { "row": 3, "seat": 1 }, { "row": 3, "seat": 2 }, { "row": 3, "seat": 3 }, { "row": 3, "seat": 4 }, { "row": 3, "seat": 5 }, { "row": 3, "seat": 6 }, { "row": 3, "seat": 7 }, { "row": 3, "seat": 8 }, { "row": 3, "seat": 9 },
+            { "row": 4, "seat": 1 }, { "row": 4, "seat": 2 }, { "row": 4, "seat": 3 }, { "row": 4, "seat": 4 }, { "row": 4, "seat": 5 }, { "row": 4, "seat": 6 }, { "row": 4, "seat": 7 }, { "row": 4, "seat": 8 }, { "row": 4, "seat": 9 },
+            { "row": 5, "seat": 1 }, { "row": 5, "seat": 2 }, { "row": 5, "seat": 3 }, { "row": 5, "seat": 4 }, { "row": 5, "seat": 5 }, { "row": 5, "seat": 6 }, { "row": 5, "seat": 7 }, { "row": 5, "seat": 8 }, { "row": 5, "seat": 9 },
+            { "row": 6, "seat": 1 }, { "row": 6, "seat": 2 }, { "row": 6, "seat": 3 }, { "row": 6, "seat": 4 }, { "row": 6, "seat": 5 }, { "row": 6, "seat": 6 }, { "row": 6, "seat": 7 }, { "row": 6, "seat": 8 }, { "row": 6, "seat": 9 },
+            { "row": 7, "seat": 1 }, { "row": 7, "seat": 2 }, { "row": 7, "seat": 3 }, { "row": 7, "seat": 4 }, { "row": 7, "seat": 5 }, { "row": 7, "seat": 6 }, { "row": 7, "seat": 7 }, { "row": 7, "seat": 8 }, { "row": 7, "seat": 9 },
+            { "row": 8, "seat": 1 }, { "row": 8, "seat": 2 }, { "row": 8, "seat": 3 }, { "row": 8, "seat": 4 }, { "row": 8, "seat": 5 }, { "row": 8, "seat": 6 }, { "row": 8, "seat": 7 }, { "row": 8, "seat": 8 }, { "row": 8, "seat": 9 },
+            { "row": 9, "seat": 1 }, { "row": 9, "seat": 2 }, { "row": 9, "seat": 3 }, { "row": 9, "seat": 4 }, { "row": 9, "seat": 5 }, { "row": 9, "seat": 6 }, { "row": 9, "seat": 7 }, { "row": 9, "seat": 8 }, { "row": 9, "seat": 9 }
+            ]
         },
         {
           "id": 2,

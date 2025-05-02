@@ -1,9 +1,18 @@
 import Icon from '@mdi/react';
 import { mdiTicketConfirmation } from '@mdi/js';
+import { useEffect } from 'react';
 
 function Navbar(props) {
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const { activeDay, setActiveDay } = props;
     
+    useEffect(() => {
+        if (!activeDay) {
+            const todayIndex = new Date().getDay();
+            const today = days[(todayIndex + 6) % 7];
+            setActiveDay(today);
+        }
+    });
     return (
         <div className="bg-gradient-to-r from-indigo-900 to-purple-800 rounded-xl px-6 py-4 m-5">
             <div className='flex flex-col lg:flex-row justify-between items-center gap-5'>
