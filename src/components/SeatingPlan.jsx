@@ -42,7 +42,7 @@ function SeatingPlan({ activeScreening, ticketCounts, selectedSeats, setSelected
 
     return (
         <div>
-            <p className="text-center mb-4">Válasszon {totalTickets - selectedSeats.length} ülőhelyet</p>
+            <p className="text-center mb-4">Choose {totalTickets - selectedSeats.length} seats</p>
             <div className="mb-10 flex justify-center">
                 <div className="w-full max-w-xs h-2 bg-neutral-600 rounded-lg mb-6"></div>
             </div>

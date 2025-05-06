@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 function TicketSelector({ ticketCounts, updateTicketCounts, selectedSeats }) {
     const TICKET_PRICES = {
         adult: 2500,
@@ -13,7 +11,7 @@ function TicketSelector({ ticketCounts, updateTicketCounts, selectedSeats }) {
         <div className="flex flex-col gap-5">
             <div className="flex gap-4 items-center">
                 <div className="w-24">
-                    <p>Felnőtt</p>
+                    <p>Adult</p>
                     <p className="text-sm text-neutral-500">{TICKET_PRICES.adult.toLocaleString()}Ft</p>
                 </div>
                 <div className="flex flex-row justify-center items-center gap-2">
@@ -36,7 +34,7 @@ function TicketSelector({ ticketCounts, updateTicketCounts, selectedSeats }) {
             
             <div className="flex gap-4 items-center">
                 <div className="w-24">
-                    <p>Diák</p>
+                    <p>Student</p>
                     <p className="text-sm text-neutral-500">{TICKET_PRICES.student.toLocaleString()}Ft</p>
                 </div>
                 <div className="flex flex-row justify-center items-center gap-2">
@@ -59,7 +57,7 @@ function TicketSelector({ ticketCounts, updateTicketCounts, selectedSeats }) {
             
             <div className="flex gap-4 items-center">
                 <div className="w-24">
-                    <p>Nyugdíjas</p>
+                    <p>Senior</p>
                     <p className="text-sm text-neutral-500">{TICKET_PRICES.senior.toLocaleString()}Ft</p>
                 </div>
                 <div className="flex flex-row justify-center items-center gap-2">
@@ -82,7 +80,7 @@ function TicketSelector({ ticketCounts, updateTicketCounts, selectedSeats }) {
             
             <hr className="text-neutral-700"></hr>
             <div className="flex justify-between">
-                <p>Összesen:</p>
+                <p>Total:</p>
                 <p>
                     {ticketCounts.adult * TICKET_PRICES.adult +
                      ticketCounts.student * TICKET_PRICES.student +
@@ -91,7 +89,7 @@ function TicketSelector({ ticketCounts, updateTicketCounts, selectedSeats }) {
             </div>
             {totalTickets > 0 ? (
                 <div className="flex justify-center gap-1">
-                    <p>Ülőhelyek:</p>
+                    <p>Seats:</p>
                     <p> {selectedSeats.length}/{totalTickets}</p>
                 </div>    
             ) : null}
