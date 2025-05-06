@@ -6,6 +6,9 @@ import MovieDetailsCard from './components/MovieDetailsCard.jsx'
 import SeatingPlan from './components/SeatingPlan.jsx'
 import TicketSelector from './components/TicketSelector.jsx'
 import OrderSummary from './components/OrderSummary';
+import BookingConfirmationModal from './components/BookingConfirmationModal';
+import movieData from './assets/movies.json';
+import { useLocalStorage } from './hooks/useLocalStorage.jsx';
 
 function App() {
   const [activeDay, setActiveDay] = useState();
@@ -17,6 +20,10 @@ function App() {
     senior: 0 
   });
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // Use our custom hook to manage movie data in localStorage
+  const [storedMovieData, setStoredMovieData] = useLocalStorage('movieData', movieData);
 
   const updateTicketCounts = (type, newCount) => {
     const currentTotal = Object.values(ticketCounts).reduce((a, b) => a + b, 0);
@@ -29,11 +36,57 @@ function App() {
     setTicketCounts({...ticketCounts, [type]: newCount});
   };
 
+  const calculateTotalPrice = () => {
+    const TICKET_PRICES = {
+      adult: 2500,
+      student: 2000,
+      senior: 1800
+    };
+    
+    return Object.entries(ticketCounts).reduce((total, [type, count]) => {
+      return total + (count * TICKET_PRICES[type]);
+    }, 0);
+  };
+
+  const handleBookingRequest = () => {
+    setIsModalOpen(true);
+  };
+
   const handleConfirmBooking = () => {
-    alert('Booking confirmed!');
-    setSelectedSeats([]);
-    setTicketCounts({ adult: 0, student: 0, senior: 0 });
-    setActiveScreening({});
+    const newBookings = selectedSeats.map(seatId => {
+      const [row, seat] = seatId.split('-').map(Number);
+      return { row, seat };
+    });
+
+    const updatedMovieData = JSON.parse(JSON.stringify(storedMovieData));
+    
+    const movieIndex = updatedMovieData.findIndex(m => m.title === activeMovie.title);
+    if (movieIndex !== -1) {
+      const screeningIndex = updatedMovieData[movieIndex].screenings.findIndex(
+        s => s.id === activeScreening.id
+      );
+      
+      if (screeningIndex !== -1) {
+        updatedMovieData[movieIndex].screenings[screeningIndex].bookings = [
+          ...updatedMovieData[movieIndex].screenings[screeningIndex].bookings,
+          ...newBookings
+        ];
+        
+        setStoredMovieData(updatedMovieData);
+        
+        setActiveScreening({
+          ...activeScreening,
+          bookings: [...activeScreening.bookings, ...newBookings]
+        });
+        
+        setIsModalOpen(false);
+        
+        setSelectedSeats([]);
+        setTicketCounts({ adult: 0, student: 0, senior: 0 });
+
+        window.location.reload();
+      }
+    }
   };
 
   useEffect(() => {
@@ -82,13 +135,24 @@ function App() {
                 activeScreening={activeScreening}
                 ticketCounts={ticketCounts}
                 selectedSeats={selectedSeats}
-                onConfirmBooking={handleConfirmBooking}
+                onConfirmBooking={handleBookingRequest}
               />
             </div>
           )}
           
         </div>
       </div>
+      <BookingConfirmationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmBooking}
+        movie={activeMovie}
+        day={activeDay}
+        screening={activeScreening}
+        tickets={ticketCounts}
+        seats={selectedSeats}
+        totalPrice={calculateTotalPrice()}
+      />
     </>
   )
 }

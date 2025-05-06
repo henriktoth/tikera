@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react'
+import { useLocalStorage } from '../hooks/useLocalStorage.jsx';
 import movieData from '../assets/movies.json'
 import MovieCard from './MovieCard.jsx'
 
 function MovieList(props){
     const [filteredMovies, setFilteredMovies] = useState([])
+    const [storedMovieData] = useLocalStorage('movieData', movieData);
     
     useEffect(()=>{
-        const filtered = movieData.filter(movie => 
+        const filtered = storedMovieData.filter(movie => 
             movie.screenings.some(screening => 
             screening.weekday === props.activeDay)
         )
         setFilteredMovies(filtered)
-    }, [props.activeDay])
+    }, [props.activeDay, storedMovieData])
+    
     return(
         <div className="flex flex-wrap w-full lg:w-[50%]">
             {filteredMovies.map(movie => (
@@ -27,7 +30,6 @@ function MovieList(props){
             )}
         </div>
     )
-    
 }
 
 export default MovieList

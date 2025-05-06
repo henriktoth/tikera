@@ -33,7 +33,6 @@ function OrderSummary({
         <div className="text-sm text-neutral-400 flex gap-3">
           <span>{activeDay}</span>
           <span>{activeScreening?.start_time}</span>
-          <span>{activeScreening?.room?.rows} x {activeScreening?.room?.seatsPerRow} room</span>
         </div>
       </div>
       
@@ -90,7 +89,7 @@ function OrderSummary({
         disabled={selectedSeats.length !== (ticketCounts.adult + ticketCounts.student + ticketCounts.senior)}
         onClick={onConfirmBooking}
       >
-        Confirm Booking
+        Review Booking
       </button>
     </div>
   );

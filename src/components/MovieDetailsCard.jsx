@@ -1,23 +1,32 @@
 import { useState, useEffect } from "react"
 import { useImageLoader } from "../hooks/useImageLoader.jsx"
+import { useLocalStorage } from '../hooks/useLocalStorage.jsx';
 import movieData from '../assets/movies.json'
 
 function MovieDetailsCard(props){
     const imageSource = useImageLoader(props.activeMovie.image)
     const [showTimes, setShowTimes] = useState([])
     const [screenings, setScreenings] = useState([])
+    
+    // Use stored movie data
+    const [storedMovieData] = useLocalStorage('movieData', movieData);
 
     useEffect(() => {
-        const screenings = movieData.find(movie => movie.title === props.activeMovie.title).screenings
-        const showTimes = new Set()
-        screenings.forEach(screening => {
-            if (screening.weekday === props.activeDay){
-                showTimes.add(screening.start_time)
-            }
-        })
-        setScreenings(screenings)
-        setShowTimes(Array.from(showTimes))
-    },[props.activeMovie, props.activeDay])
+        const movie = storedMovieData.find(movie => movie.title === props.activeMovie.title);
+        if (movie) {
+            const screenings = movie.screenings;
+            const showTimes = new Set();
+            
+            screenings.forEach(screening => {
+                if (screening.weekday === props.activeDay) {
+                    showTimes.add(screening.start_time);
+                }
+            });
+            
+            setScreenings(screenings);
+            setShowTimes(Array.from(showTimes));
+        }
+    },[props.activeMovie, props.activeDay, storedMovieData]);
 
     const isFullyBooked = (screening) => {
         if (!screening || !screening.room) return false;
