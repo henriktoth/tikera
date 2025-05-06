@@ -1,4 +1,4 @@
-import { useImageLoader } from '../hooks/useImageLoader'; // Corrected case
+import { useImageLoader } from '../hooks/useImageLoader.jsx';
 
 function MovieCard(props) {
     const imageSource = useImageLoader(props.image);

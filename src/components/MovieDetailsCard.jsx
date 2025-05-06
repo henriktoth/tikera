@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useImageLoader } from "../hooks/useImageLoader" // Corrected case
+import { useImageLoader } from "../hooks/useImageLoader.jsx"
 import movieData from '../assets/movies.json'
 
 function MovieDetailsCard(props){
