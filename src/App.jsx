@@ -22,7 +22,6 @@ function App() {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  // Use our custom hook to manage movie data in localStorage
   const [storedMovieData, setStoredMovieData] = useLocalStorage('movieData', movieData);
 
   const updateTicketCounts = (type, newCount) => {
