@@ -83,13 +83,13 @@ function BookingConfirmationModal({
         
         <div className="flex gap-3 mt-6">
           <button
-            className="flex-1 py-3 rounded-lg bg-neutral-700 hover:bg-neutral-600"
+            className="flex-1 py-3 rounded-lg bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer"
             onClick={onClose}
           >
             Cancel
           </button>
           <button
-            className="flex-1 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700"
+            className="flex-1 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 hover:cursor-pointer"
             onClick={onConfirm}
           >
             Confirm

@@ -81,7 +81,7 @@ function OrderSummary({
       </div>
       
       <button
-        className={`w-full mt-4 py-3 rounded-lg font-medium ${
+        className={`w-full mt-4 py-3 rounded-lg font-medium hover:cursor-pointer ${
           selectedSeats.length === (ticketCounts.adult + ticketCounts.student + ticketCounts.senior)
             ? 'bg-indigo-600 hover:bg-indigo-700'
             : 'bg-neutral-700 cursor-not-allowed opacity-50'
