@@ -2,9 +2,33 @@ import { useState, useEffect } from "react"
 import Icon from '@mdi/react';
 import { mdiSeat } from '@mdi/js';
 
-function SeatingPlan({ activeScreening, ticketCounts, selectedSeats, setSelectedSeats }){
-    const [seats, setSeats] = useState([[]])
+function SeatingPlan({ activeScreening, setSelectedSeats, ticketCounts, selectedSeats }) {
     
+    const [seats, setSeats] = useState([[]])
+    const totalTickets = ticketCounts.adult + ticketCounts.student + ticketCounts.senior;
+
+    /**
+     * Handles seat selection. Sets the selected seat in selectedSeat state. 
+     * @param  rowIndex - The row index of the clicked seat 
+     * @param  seatIndex - The index of the clicked set.
+     *
+     */
+    const handleSeatClick = (rowIndex, seatIndex) => {
+        const seatId = `${rowIndex}-${seatIndex}`;
+        const isReserved = seats[rowIndex][seatIndex] === 1;
+        const isSelected = selectedSeats.includes(seatId);
+        
+        if (isReserved) return;
+        
+        if (isSelected) {
+            setSelectedSeats(selectedSeats.filter(id => id !== seatId));
+        } else {
+            if (selectedSeats.length < totalTickets) {
+                setSelectedSeats([...selectedSeats, seatId]);
+            }
+        }
+    };
+
     useEffect(() => { 
         if (!activeScreening) return
         const rows = activeScreening.room.rows
@@ -21,24 +45,6 @@ function SeatingPlan({ activeScreening, ticketCounts, selectedSeats, setSelected
         setSeats(initialSeats);
         setSelectedSeats([]);
     }, [activeScreening, setSelectedSeats])
-
-    const totalTickets = ticketCounts.adult + ticketCounts.student + ticketCounts.senior;
-
-    const handleSeatClick = (rowIndex, seatIndex) => {
-        const seatId = `${rowIndex}-${seatIndex}`;
-        const isReserved = seats[rowIndex][seatIndex] === 1;
-        const isSelected = selectedSeats.includes(seatId);
-        
-        if (isReserved) return;
-        
-        if (isSelected) {
-            setSelectedSeats(selectedSeats.filter(id => id !== seatId));
-        } else {
-            if (selectedSeats.length < totalTickets) {
-                setSelectedSeats([...selectedSeats, seatId]);
-            }
-        }
-    };
 
     return (
         <div>

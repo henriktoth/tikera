@@ -24,6 +24,11 @@ function App() {
   
   const [storedMovieData, setStoredMovieData] = useLocalStorage('movieData', movieData);
 
+  /**
+  * updates the ticket counts object by adding the newCount to the specified type
+  * @param type - The type of the ticket: [adult, student, senior]
+  * @param newCount - the new count of the ticket.
+  */
   const updateTicketCounts = (type, newCount) => {
     const currentTotal = Object.values(ticketCounts).reduce((a, b) => a + b, 0);
     const newTotal = currentTotal - ticketCounts[type] + newCount;
@@ -35,6 +40,10 @@ function App() {
     setTicketCounts({...ticketCounts, [type]: newCount});
   };
 
+  /**
+  * Calculates total price based on the ticketCounts state.
+  * @returns the calulated total price
+  */
   const calculateTotalPrice = () => {
     const TICKET_PRICES = {
       adult: 2500,
@@ -47,10 +56,16 @@ function App() {
     }, 0);
   };
 
+  /**
+  * Handles button click on booking, by opening a modal with a summary.
+  */
   const handleBookingRequest = () => {
     setIsModalOpen(true);
   };
 
+  /**
+  * Finalizes the booking. Updates the bookings database and returns user to the movie selection part.
+  */
   const handleConfirmBooking = () => {
     const newBookings = selectedSeats.map(seatId => {
       const [row, seat] = seatId.split('-').map(Number);

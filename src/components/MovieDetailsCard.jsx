@@ -7,8 +7,6 @@ function MovieDetailsCard(props){
     const imageSource = useImageLoader(props.activeMovie.image)
     const [showTimes, setShowTimes] = useState([])
     const [screenings, setScreenings] = useState([])
-    
-    // Use stored movie data
     const [storedMovieData] = useLocalStorage('movieData', movieData);
 
     useEffect(() => {
@@ -28,6 +26,11 @@ function MovieDetailsCard(props){
         }
     },[props.activeMovie, props.activeDay, storedMovieData]);
 
+    /**
+     * Decides if a screening is fully booked
+     * @param screening - a selected screening
+     * @returns boolean representing the screenings fully booked state
+     */
     const isFullyBooked = (screening) => {
         if (!screening || !screening.room) return false;
         
