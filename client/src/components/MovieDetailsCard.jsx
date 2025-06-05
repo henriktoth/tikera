@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react"
-import { useImageLoader } from "../hooks/useImageLoader.jsx"
-import { useLocalStorage } from '../hooks/useLocalStorage.jsx';
-import movieData from '../assets/movies.json'
+import { useGetMoviesQuery } from '../store/moviesApi.js'
 
 function MovieDetailsCard(props){
-    const imageSource = useImageLoader(props.activeMovie.image)
     const [showTimes, setShowTimes] = useState([])
     const [screenings, setScreenings] = useState([])
-    const [storedMovieData] = useLocalStorage('movieData', movieData);
+    const { data: storedMovieData, isLoading, error } = useGetMoviesQuery();
 
     useEffect(() => {
-        const movie = storedMovieData.find(movie => movie.title === props.activeMovie.title);
+        const movie = storedMovieData.data.find(movie => movie.title === props.activeMovie.title);
         if (movie) {
             const screenings = movie.screenings;
             const showTimes = new Set();
@@ -43,7 +40,7 @@ function MovieDetailsCard(props){
     return (
         <div className="bg-neutral-800/50 mr-5 mt-5 p-3 max-w-200 rounded-xl h-fit self-start">
             <div className="flex gap-5">
-                <img src={imageSource} alt="" className="w-50 rounded-xl shadow-xl"/>
+                <img src={props.activeMovie.image_path} alt="" className="w-50 rounded-xl shadow-xl"/>
                 <div>
                     <h3 className="text-4xl font-bold my-1">{props.activeMovie.title}</h3>
                     <p className="text-neutral-500 my-1">{props.activeMovie.release_year}</p>

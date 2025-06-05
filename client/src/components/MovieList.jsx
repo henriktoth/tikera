@@ -29,8 +29,8 @@ function MovieList(props){
         <div className="flex flex-wrap w-full lg:w-[50%]">
             {filteredMovies.map(movie => (
                 <MovieCard 
-                    key={movie.title} 
-                    image={movie.image} 
+                    key={movie.id} 
+                    image={movie.image_path} 
                     name={movie.title} 
                     genre={movie.genre} 
                     runtime={movie.duration}
