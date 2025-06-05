@@ -1,17 +1,26 @@
 import Icon from '@mdi/react';
-import { mdiTicketConfirmation } from '@mdi/js';
+import { mdiTicketConfirmation, mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { decreaseWeek, increaseWeek } from '../store/weekSlice';
 
 function Navbar(props) {
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    const user = useSelector(state => state.user)
+    const dispatch = useDispatch();
+    const activeWeek = useSelector(state => state.week.value);
+    
     useEffect(() => {
         const todayIndex = new Date().getDay()
         const today = days[(todayIndex + 6) % 7]
         props.setActiveDay(today)
-        console.log(user)
     }, []);
+    
+    const handleDayClick = (day) => {
+        props.setActiveDay(day);
+        const dayIndex = days.indexOf(day);
+        props.setActiveDayIndex(dayIndex + 1);
+    }
     
     return (
         <>
@@ -23,15 +32,43 @@ function Navbar(props) {
                     </div>
                     <h1 className="text-xl font-bold uppercase text-white tracking-wider">Tikera</h1>
                 </div>
-                {/* TODO: add nav items later */}
             </div>
+        </div>
+        <div className="inline-flex items-center gap-3 bg-white/10 px-4 py-2 rounded-xl m-5">
+                    <button 
+                        onClick={() => dispatch(decreaseWeek())} 
+                        disabled={activeWeek <= 23}
+                        className={`p-2 rounded-full transition-all duration-200 ${
+                            activeWeek <= 23 
+                            ? 'bg-white/10 cursor-not-allowed opacity-50' 
+                            : 'bg-white/20 hover:bg-white/30'
+                        }`}
+                    >
+                        <Icon path={mdiChevronLeft} size={1} className="text-white" />
+                    </button>
+                    
+                    <div className="text-white font-medium px-3">
+                        {activeWeek}. week
+                    </div>
+                    
+                    <button 
+                        onClick={() => dispatch(increaseWeek())} 
+                        disabled={activeWeek >= 32}
+                        className={`p-2 rounded-full transition-all duration-200 ${
+                            activeWeek >= 32 
+                            ? 'bg-white/10 cursor-not-allowed opacity-50' 
+                            : 'bg-white/20 hover:bg-white/30'
+                        }`}
+                    >
+                        <Icon path={mdiChevronRight} size={1} className="text-white" />
+                    </button>
         </div>
         <div className='bg-white/10 rounded-xl px-3 py-2 shadow-inner mx-5 inline-block'>
                     <ul className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
                         {days.map( day => (
                             <li 
                                 key={day}
-                                onClick={() => props.setActiveDay(day)}
+                                onClick={() => handleDayClick(day)}
                                 className={`px-5 py-2 w-35 rounded-lg transition-all duration-100 hover:cursor-pointer text-center
                                     ${props.activeDay === day 
                                         ? 'bg-white text-purple-900 shadow-md' 

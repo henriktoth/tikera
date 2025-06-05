@@ -1,22 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useGetMoviesQuery } from '../store/moviesApi.js';
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const { data } = useGetMoviesQuery();
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         navigate('/');
     };
-
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-900 to-purple-800">
@@ -24,6 +18,7 @@ function Login() {
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-purple-900">Tikera</h1>
                     <p className="text-gray-600">Welcome to tIKera movie booking platform</p>
+
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>

@@ -1,19 +1,29 @@
 import { useEffect, useState } from 'react'
-import { useLocalStorage } from '../hooks/useLocalStorage.jsx';
-import movieData from '../assets/movies.json'
+import { useGetMoviesQuery } from '../store/moviesApi.js'
 import MovieCard from './MovieCard.jsx'
+import { useSelector } from 'react-redux';
 
 function MovieList(props){
     const [filteredMovies, setFilteredMovies] = useState([])
-    const [storedMovieData] = useLocalStorage('movieData', movieData);
+    const { data: movieData, isLoading, error } = useGetMoviesQuery();
     
-    useEffect(()=>{
-        const filtered = storedMovieData.filter(movie => 
-            movie.screenings.some(screening => 
-            screening.weekday === props.activeDay)
-        )
-        setFilteredMovies(filtered)
-    }, [props.activeDay, storedMovieData])
+    const activeWeek = useSelector(state => state.week.value);
+
+    useEffect(() => {
+        if (movieData) {
+            console.log(props.activeDayIndex)
+            const filtered = movieData.data.filter(movie => 
+                movie.screenings.some(screening => 
+                    screening.week_number === activeWeek
+                    && screening.week_day === props.activeDayIndex
+                )
+            )
+            setFilteredMovies(filtered)
+        }
+    }, [props.activeDay, activeWeek, movieData])
+    
+    if (isLoading) return <div className="p-4 text-white">Loading movies...</div>
+    if (error) return <div className="p-4 text-red-500">Error loading movies: {error.message}</div>
     
     return(
         <div className="flex flex-wrap w-full lg:w-[50%]">
@@ -26,8 +36,7 @@ function MovieList(props){
                     runtime={movie.duration}
                     onClick={() => {props.setActiveMovie(movie)}}
                 />
-                )
-            )}
+            ))}
         </div>
     )
 }

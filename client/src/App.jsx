@@ -12,6 +12,7 @@ import { useLocalStorage } from './hooks/useLocalStorage';
 
 function App() {
   const [activeDay, setActiveDay] = useState();
+  const [activeDayIndex, setActiveDayIndex] = useState(0);
   const [activeMovie, setActiveMovie] = useState();
   const [activeScreening, setActiveScreening] = useState({});
   const [ticketCounts, setTicketCounts] = useState({ 
@@ -107,16 +108,17 @@ function App() {
     setActiveScreening({}); 
   }, [activeMovie]);
 
+
   return (
     <>
-      <Navbar activeDay={activeDay} setActiveDay={setActiveDay} />
+      <Navbar activeDay={activeDay} setActiveDay={setActiveDay} setActiveDayIndex={setActiveDayIndex} />
       {/* <div className='flex lg:justify-start justify-center'> 
         {activeDay ? 
           <ActiveDayBadge activeDay={activeDay}/>
         : null}
       </div> */}
       <div className='flex lg:flex-row flex-col gap-3'>
-        <MovieList activeDay={activeDay} setActiveMovie={setActiveMovie} activeMovie={activeMovie}/>
+        <MovieList activeDay={activeDay} activeDayIndex={activeDayIndex} setActiveMovie={setActiveMovie} activeMovie={activeMovie}/>
         <div className='flex flex-col gap-5'>
           {activeMovie ?
             <MovieDetailsCard activeMovie={activeMovie} activeDay={activeDay} setActiveScreening={setActiveScreening} />
