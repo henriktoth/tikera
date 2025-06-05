@@ -110,11 +110,11 @@ function App() {
   return (
     <>
       <Navbar activeDay={activeDay} setActiveDay={setActiveDay} />
-      <div className='flex lg:justify-start justify-center'> 
+      {/* <div className='flex lg:justify-start justify-center'> 
         {activeDay ? 
           <ActiveDayBadge activeDay={activeDay}/>
         : null}
-      </div>
+      </div> */}
       <div className='flex lg:flex-row flex-col gap-3'>
         <MovieList activeDay={activeDay} setActiveMovie={setActiveMovie} activeMovie={activeMovie}/>
         <div className='flex flex-col gap-5'>

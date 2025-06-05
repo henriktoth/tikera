@@ -12,6 +12,7 @@ function Navbar(props) {
     }, []);
     
     return (
+        <>
         <div className="bg-gradient-to-r from-indigo-900 to-purple-800 rounded-xl px-6 py-4 m-5">
             <div className='flex flex-col lg:flex-row justify-between items-center gap-5'>
                 <div className="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-xl transition-all duration-300 hover:bg-white/20 hover:cursor-pointer">
@@ -20,9 +21,11 @@ function Navbar(props) {
                     </div>
                     <h1 className="text-xl font-bold uppercase text-white tracking-wider">Tikera</h1>
                 </div>
-                
-                <div className='bg-white/10 rounded-xl px-3 py-2 shadow-inner'>
-                    <ul className="flex flex-wrap items-center gap-3">
+                {/* TODO: add nav items later */}
+            </div>
+        </div>
+        <div className='bg-white/10 rounded-xl px-3 py-2 shadow-inner mx-5 inline-block'>
+                    <ul className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
                         {days.map( day => (
                             <li 
                                 key={day}
@@ -37,9 +40,8 @@ function Navbar(props) {
                             </li>
                         ))}
                     </ul>
-                </div>
-            </div>
         </div>
+        </>
     );
 }
 

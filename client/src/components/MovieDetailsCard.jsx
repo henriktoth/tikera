@@ -41,7 +41,7 @@ function MovieDetailsCard(props){
     };
 
     return (
-        <div className="bg-neutral-800/50 mr-5 p-3 max-w-200 rounded-xl h-fit self-start">
+        <div className="bg-neutral-800/50 mr-5 mt-5 p-3 max-w-200 rounded-xl h-fit self-start">
             <div className="flex gap-5">
                 <img src={imageSource} alt="" className="w-50 rounded-xl shadow-xl"/>
                 <div>
