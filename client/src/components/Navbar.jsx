@@ -1,14 +1,16 @@
 import Icon from '@mdi/react';
 import { mdiTicketConfirmation } from '@mdi/js';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 function Navbar(props) {
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    
+    const user = useSelector(state => state.user)
     useEffect(() => {
         const todayIndex = new Date().getDay()
         const today = days[(todayIndex + 6) % 7]
         props.setActiveDay(today)
+        console.log(user)
     }, []);
     
     return (

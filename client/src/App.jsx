@@ -8,7 +8,7 @@ import TicketSelector from './components/TicketSelector.jsx'
 import OrderSummary from './components/OrderSummary';
 import BookingConfirmationModal from './components/BookingConfirmationModal';
 import movieData from './assets/movies.json';
-import { useLocalStorage } from './hooks/useLocalStorage.jsx';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 function App() {
   const [activeDay, setActiveDay] = useState();
