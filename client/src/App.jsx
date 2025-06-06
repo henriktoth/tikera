@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, } from 'react';
 import Navbar from './components/Navbar.jsx'
 import ActiveDayBadge from './components/ActiveDayBadge.jsx'
 import MovieList from './components/MovieList.jsx'
@@ -7,8 +7,6 @@ import SeatingPlan from './components/SeatingPlan.jsx'
 import TicketSelector from './components/TicketSelector.jsx'
 import OrderSummary from './components/OrderSummary';
 import BookingConfirmationModal from './components/BookingConfirmationModal';
-import movieData from './assets/movies.json';
-import { useLocalStorage } from './hooks/useLocalStorage';
 
 function App() {
   const [activeDay, setActiveDay] = useState();
@@ -22,8 +20,6 @@ function App() {
   });
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  const [storedMovieData, setStoredMovieData] = useLocalStorage('movieData', movieData);
 
   /**
   * updates the ticket counts object by adding the newCount to the specified type
@@ -68,46 +64,45 @@ function App() {
   * Finalizes the booking. Updates the bookings database and returns user to the movie selection part.
   */
   const handleConfirmBooking = () => {
-    const newBookings = selectedSeats.map(seatId => {
-      const [row, seat] = seatId.split('-').map(Number);
-      return { row, seat };
-    });
+    // const newBookings = selectedSeats.map(seatId => {
+    //   const [row, seat] = seatId.split('-').map(Number);
+    //   return { row, seat };
+    // });
 
-    const updatedMovieData = JSON.parse(JSON.stringify(storedMovieData));
+    // const updatedMovieData = JSON.parse(JSON.stringify(storedMovieData));
     
-    const movieIndex = updatedMovieData.findIndex(m => m.title === activeMovie.title);
-    if (movieIndex !== -1) {
-      const screeningIndex = updatedMovieData[movieIndex].screenings.findIndex(
-        s => s.id === activeScreening.id
-      );
+    // const movieIndex = updatedMovieData.findIndex(m => m.title === activeMovie.title);
+    // if (movieIndex !== -1) {
+    //   const screeningIndex = updatedMovieData[movieIndex].screenings.findIndex(
+    //     s => s.id === activeScreening.id
+    //   );
       
-      if (screeningIndex !== -1) {
-        updatedMovieData[movieIndex].screenings[screeningIndex].bookings = [
-          ...updatedMovieData[movieIndex].screenings[screeningIndex].bookings,
-          ...newBookings
-        ];
-        
-        setStoredMovieData(updatedMovieData);
-        
-        setActiveScreening({
-          ...activeScreening,
-          bookings: [...activeScreening.bookings, ...newBookings]
-        });
-        
-        setIsModalOpen(false);
-        
-        setSelectedSeats([]);
-        setTicketCounts({ adult: 0, student: 0, senior: 0 });
+    //   if (screeningIndex !== -1) {
+    //     updatedMovieData[movieIndex].screenings[screeningIndex].bookings = [
+    //       ...updatedMovieData[movieIndex].screenings[screeningIndex].bookings,
+    //       ...newBookings
+    //     ];
+      
+    //     setStoredMovieData(updatedMovieData);
+      
+    //     setActiveScreening({
+    //       ...activeScreening,
+    //       bookings: [...activeScreening.bookings, ...newBookings]
+    //     });
+      
+    //     setIsModalOpen(false);
+      
+    //     setSelectedSeats([]);
+    //     setTicketCounts({ adult: 0, student: 0, senior: 0 });
 
-        window.location.reload();
-      }
-    }
+      //  window.location.reload();
+    //  }
+   // }
   };
 
   useEffect(() => {
     setActiveScreening({}); 
   }, [activeMovie]);
-
 
   return (
     <>

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 function MovieDetailsCard(props){
     const [showTimes, setShowTimes] = useState([])
     const [screenings, setScreenings] = useState([])
-    const { data: movies, isLoading, error } = useGetMoviesQuery();
+    const { data: movies} = useGetMoviesQuery();
     const activeWeek = useSelector(state => state.week.value);
 
     useEffect(() => {
@@ -66,7 +66,6 @@ function MovieDetailsCard(props){
                                     onClick={() => {
                                         if (!fullyBooked) {
                                             props.setActiveScreening(screening);
-                                            console.log(screening);
                                         }
                                     }}
                                     className={`px-3 py-2 rounded-lg text-center 

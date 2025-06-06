@@ -18,7 +18,6 @@ function MovieList(props){
                 )
             )
             setFilteredMovies(filtered)
-            console.log('Filtered movies:', filtered);
         }
     }, [props.activeDay, activeWeek, movieData])
     

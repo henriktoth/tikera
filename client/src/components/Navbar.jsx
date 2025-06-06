@@ -1,5 +1,5 @@
 import Icon from '@mdi/react';
-import { mdiTicketConfirmation, mdiChevronLeft, mdiChevronRight } from '@mdi/js';
+import { mdiTicketConfirmation, mdiChevronLeft, mdiChevronRight, mdiAccountCircle } from '@mdi/js';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -9,18 +9,22 @@ function Navbar(props) {
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     const dispatch = useDispatch();
     const activeWeek = useSelector(state => state.week.value);
+    const user = useSelector(state => state.user);
     
     useEffect(() => {
         const todayIndex = new Date().getDay()
         const today = days[(todayIndex + 6) % 7]
         props.setActiveDay(today)
+        
+        const dayIndex = days.indexOf(today) + 1;
+        props.setActiveDayIndex(dayIndex);
     }, []);
     
     const handleDayClick = (day) => {
         props.setActiveDay(day);
         const dayIndex = days.indexOf(day) + 1;
         props.setActiveDayIndex(dayIndex);
-        console.log('Active day: ' + dayIndex + ' | Active weeek: ' + activeWeek);
+        console.log('Active day: ' + dayIndex + ' | Active week: ' + activeWeek);
         }
     
     return (
@@ -33,6 +37,12 @@ function Navbar(props) {
                     </div>
                     <h1 className="text-xl font-bold uppercase text-white tracking-wider">Tikera</h1>
                 </div>
+                {user?.isLoggedIn && (
+                    <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl">
+                        <Icon path={mdiAccountCircle} size={1.2} className="text-white" />
+                        <span className="text-white font-medium">{user.email}</span>
+                    </div>
+                )}
             </div>
         </div>
         <div className="inline-flex items-center gap-3 bg-white/10 px-4 py-2 rounded-xl m-5">

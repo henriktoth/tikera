@@ -38,14 +38,19 @@ function SeatingPlan({ activeScreening, setSelectedSeats, ticketCounts, selected
 
         activeScreening.bookings.forEach(booking => {
             const { row, seat } = booking;
-            if (initialSeats[row] && typeof initialSeats[row][seat] !== "undefined") {
-                initialSeats[row][seat] = 1;
+            if (initialSeats[row-1] && typeof initialSeats[row-1][seat-1] !== "undefined") {
+                initialSeats[row-1][seat-1] = 1;
             }
         });
+
         setSeats(initialSeats);
         setSelectedSeats([]);
-    }, [activeScreening, setSelectedSeats])
+    }, [activeScreening])
 
+    useEffect(() => {
+        console.log("activeScreening bookings:", activeScreening?.bookings);
+    }, [activeScreening])
+    
     return (
         <div>
             <p className="text-center mb-4">Choose {totalTickets - selectedSeats.length} seats</p>

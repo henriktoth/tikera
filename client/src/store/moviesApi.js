@@ -9,6 +9,13 @@ export const moviesApi = createApi({
     getMovies: build.query({
       query: () => `/movies`,
     }),
+    register: build.mutation({
+      query: (user) => ({
+        url: '/register',
+        method: 'POST',
+        body: user,
+      }),
+    }),
   }),
 })
 
