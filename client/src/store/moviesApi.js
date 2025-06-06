@@ -16,8 +16,16 @@ export const moviesApi = createApi({
         body: user,
       }),
     }),
+    login: build.mutation({
+      query: (user) => ({
+        url: '/login',
+        method: 'POST',
+        body: user,
+      }),
+    
   }),
+  })
 })
 
 
-export const { useGetMoviesQuery } = moviesApi
+export const { useGetMoviesQuery, useRegisterMutation, useLoginMutation } = moviesApi

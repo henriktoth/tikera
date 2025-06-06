@@ -10,7 +10,7 @@ function Navbar(props) {
     const dispatch = useDispatch();
     const activeWeek = useSelector(state => state.week.value);
     const user = useSelector(state => state.user);
-    
+    console.log('User email: ', user.email);
     useEffect(() => {
         const todayIndex = new Date().getDay()
         const today = days[(todayIndex + 6) % 7]

@@ -1,26 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { setUser } from '../store/userSlice';
+import { useDispatch } from 'react-redux';
+import { useRegisterMutation } from '../store/moviesApi';
+
 function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
-    const baseUser = {
-        name: "Test User",
-        email: "test@example.com",
-        password: "password123",
-        isLoggedIn: false,
-    };
-    const navigate = useNavigate();
+    const [register, {data: user, isSuccess}] = useRegisterMutation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(setUser(baseUser));
-        navigate('/'); 
+        register({
+            name,
+            email,
+            password,
+            password_confirmation: passwordConfirm
+        });
     };
+
+    useEffect(() => {
+        if (isSuccess && user) {
+            dispatch(setUser({name: name, email: email, password: password}));
+            navigate('/');
+        }
+    }, [isSuccess, user, navigate]);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-900 to-purple-800">
@@ -40,7 +48,7 @@ function Register() {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                            
+                            required
                         />
                     </div>
                     <div>
@@ -53,7 +61,7 @@ function Register() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                            
+                            required
                         />
                     </div>
                     <div>
@@ -66,7 +74,7 @@ function Register() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                            
+                            required
                         />
                     </div>
                     <div>
@@ -79,7 +87,7 @@ function Register() {
                             value={passwordConfirm}
                             onChange={(e) => setPasswordConfirm(e.target.value)}
                             className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                            
+                            required
                         />
                     </div>
                     <button
