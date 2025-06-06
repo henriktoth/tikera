@@ -111,7 +111,7 @@ function App() {
 
   return (
     <>
-      <Navbar activeDay={activeDay} setActiveDay={setActiveDay} setActiveDayIndex={setActiveDayIndex} />
+      <Navbar activeDay={activeDay} setActiveDay={setActiveDay} setActiveDayIndex={setActiveDayIndex} activeDayIndex={activeDayIndex} />
       {/* <div className='flex lg:justify-start justify-center'> 
         {activeDay ? 
           <ActiveDayBadge activeDay={activeDay}/>
@@ -121,7 +121,7 @@ function App() {
         <MovieList activeDay={activeDay} activeDayIndex={activeDayIndex} setActiveMovie={setActiveMovie} activeMovie={activeMovie}/>
         <div className='flex flex-col gap-5'>
           {activeMovie ?
-            <MovieDetailsCard activeMovie={activeMovie} activeDay={activeDay} setActiveScreening={setActiveScreening} />
+            <MovieDetailsCard activeMovie={activeMovie} activeDay={activeDay} activeDayIndex={activeDayIndex} setActiveScreening={setActiveScreening} />
           : null}
           {activeScreening.start_time ?
             <div className='bg-neutral-800/50 flex flex-col lg:flex-row p-3 max-w-200 rounded-xl h-fit self-start'>

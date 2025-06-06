@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react"
 import { useGetMoviesQuery } from '../store/moviesApi.js'
+import { useSelector } from 'react-redux'
 
 function MovieDetailsCard(props){
     const [showTimes, setShowTimes] = useState([])
     const [screenings, setScreenings] = useState([])
-    const { data: storedMovieData, isLoading, error } = useGetMoviesQuery();
+    const { data: movies, isLoading, error } = useGetMoviesQuery();
+    const activeWeek = useSelector(state => state.week.value);
 
     useEffect(() => {
-        const movie = storedMovieData.data.find(movie => movie.title === props.activeMovie.title);
+        const movie = movies.data.find(movie => movie.title === props.activeMovie.title);
         if (movie) {
             const screenings = movie.screenings;
             const showTimes = new Set();
             
             screenings.forEach(screening => {
-                if (screening.weekday === props.activeDay) {
+                if (screening.week_day === props.activeDayIndex && screening.week_number === activeWeek) {
                     showTimes.add(screening.start_time);
                 }
             });
@@ -21,7 +23,7 @@ function MovieDetailsCard(props){
             setScreenings(screenings);
             setShowTimes(Array.from(showTimes));
         }
-    },[props.activeMovie, props.activeDay, storedMovieData]);
+    },[props.activeMovie, props.activeDay, activeWeek, movies]);
 
     /**
      * Decides if a screening is fully booked
@@ -52,7 +54,9 @@ function MovieDetailsCard(props){
                     <div className="flex flex-wrap gap-2 mt-3">
                         {showTimes.map(showtime => {
                             const screening = screenings.find(
-                                screening => screening.weekday === props.activeDay && screening.start_time === showtime
+                                screening => screening.week_day === props.activeDayIndex && 
+                                             screening.start_time === showtime &&
+                                             screening.week_number === activeWeek
                             );
                             const fullyBooked = isFullyBooked(screening);
                             
@@ -62,6 +66,7 @@ function MovieDetailsCard(props){
                                     onClick={() => {
                                         if (!fullyBooked) {
                                             props.setActiveScreening(screening);
+                                            console.log(screening);
                                         }
                                     }}
                                     className={`px-3 py-2 rounded-lg text-center 

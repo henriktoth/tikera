@@ -11,7 +11,6 @@ function MovieList(props){
 
     useEffect(() => {
         if (movieData) {
-            console.log(props.activeDayIndex)
             const filtered = movieData.data.filter(movie => 
                 movie.screenings.some(screening => 
                     screening.week_number === activeWeek
@@ -19,6 +18,7 @@ function MovieList(props){
                 )
             )
             setFilteredMovies(filtered)
+            console.log('Filtered movies:', filtered);
         }
     }, [props.activeDay, activeWeek, movieData])
     

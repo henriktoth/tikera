@@ -18,9 +18,10 @@ function Navbar(props) {
     
     const handleDayClick = (day) => {
         props.setActiveDay(day);
-        const dayIndex = days.indexOf(day);
-        props.setActiveDayIndex(dayIndex + 1);
-    }
+        const dayIndex = days.indexOf(day) + 1;
+        props.setActiveDayIndex(dayIndex);
+        console.log('Active day: ' + dayIndex + ' | Active weeek: ' + activeWeek);
+        }
     
     return (
         <>
