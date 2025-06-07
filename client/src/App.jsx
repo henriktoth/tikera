@@ -1,4 +1,5 @@
 import { useState, useEffect, } from 'react';
+import { useSelector } from 'react-redux';
 import Navbar from './components/Navbar.jsx'
 import ActiveDayBadge from './components/ActiveDayBadge.jsx'
 import MovieList from './components/MovieList.jsx'
@@ -20,7 +21,7 @@ function App() {
   });
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const user = useSelector(state => state.user);
   /**
   * updates the ticket counts object by adding the newCount to the specified type
   * @param type - The type of the ticket: [adult, student, senior]
@@ -106,6 +107,14 @@ function App() {
 
   return (
     <>
+      {/* Show toast if user is logged in */}
+      {user?.isLoggedIn && (
+        <div className="toast toast-bottom toast-end z-50">
+          <div className="alert alert-success">
+            <span>Login Succesful!</span>
+          </div>
+        </div>
+      )}
       <Navbar activeDay={activeDay} setActiveDay={setActiveDay} setActiveDayIndex={setActiveDayIndex} activeDayIndex={activeDayIndex} />
       {/* <div className='flex lg:justify-start justify-center'> 
         {activeDay ? 
