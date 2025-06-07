@@ -1,16 +1,26 @@
 import Icon from '@mdi/react';
-import { mdiTicketConfirmation, mdiChevronLeft, mdiChevronRight, mdiAccountCircle } from '@mdi/js';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { mdiTicketConfirmation, mdiChevronLeft, mdiChevronRight, mdiAccountCircle, mdiLogout, mdiWeatherNight, mdiWhiteBalanceSunny } from '@mdi/js';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { decreaseWeek, increaseWeek } from '../store/weekSlice';
+import { clearUser } from '../store/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar(props) {
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     const dispatch = useDispatch();
     const activeWeek = useSelector(state => state.week.value);
     const user = useSelector(state => state.user);
-    console.log('User email: ', user.email);
+    const navigate = useNavigate();
+
+    // Dark mode state
+    const [darkMode, setDarkMode] = useState(true);
+
+    useEffect(() => {
+        // Set initial theme on mount
+        document.documentElement.classList.toggle('dark', darkMode);
+    }, [darkMode]);
+
     useEffect(() => {
         const todayIndex = new Date().getDay()
         const today = days[(todayIndex + 6) % 7]
@@ -27,6 +37,15 @@ function Navbar(props) {
         console.log('Active day: ' + dayIndex + ' | Active week: ' + activeWeek);
         }
     
+    const handleLogout = () => {
+        dispatch(clearUser());
+    };
+
+    const toggleDarkMode = () => {
+        setDarkMode((prev) => !prev);
+        document.documentElement.classList.toggle('dark');
+    };
+
     return (
         <>
         <div className="bg-gradient-to-r from-indigo-900 to-purple-800 rounded-xl px-6 py-4 m-5">
@@ -37,13 +56,60 @@ function Navbar(props) {
                     </div>
                     <h1 className="text-xl font-bold uppercase text-white tracking-wider">Tikera</h1>
                 </div>
-                {user?.isLoggedIn && (
-                    <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl">
-                        <Icon path={mdiAccountCircle} size={1.2} className="text-white" />
-                        <span className="text-white font-medium">{user.email}</span>
+                <button
+                    onClick={toggleDarkMode}
+                    className="ml-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition"
+                    title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+                >
+                    <Icon path={darkMode ? mdiWhiteBalanceSunny : mdiWeatherNight} size={1} className="text-white" />
+                </button>
+                {user?.isLoggedIn ? (
+                    <>
+                        <div className="flex flex-wrap gap-3 mt-6 justify-center lg:justify-start">
+                            {user.email === "admin@example.com" ? (
+                                <>
+                                    <a href="#" className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 hover:scale-105 transition-all duration-200 border border-white/20 shadow-lg">
+                                        Add Movie
+                                    </a>
+                                    <a href="#" className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 hover:scale-105 transition-all duration-200 border border-white/20 shadow-lg">
+                                        Add Screening
+                                    </a>
+                                </>
+                            ) : (
+                                <a href="#" className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 hover:scale-105 transition-all duration-200 border border-white/20 shadow-lg">
+                                    My Reservations
+                                </a>
+                            )}
+                        </div>
+                        <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl">
+                            <Icon path={mdiAccountCircle} size={1.2} className="text-white" />
+                            <span className="text-white font-medium">{user.email}</span>
+                            <button
+                                onClick={handleLogout}
+                                className="ml-2 p-1 rounded-full hover:bg-white/20 transition"
+                                title="Logout"
+                            >
+                                <Icon path={mdiLogout} size={1} className="text-white" />
+                            </button>
+                        </div>
+                    </>
+                ) : (
+                    <div className="flex gap-3 mt-6">
+                        <button
+                            onClick={() => navigate('/login')}
+                            className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 hover:scale-105 transition-all duration-200 border border-white/20 shadow-lg"
+                        >
+                            Login
+                        </button>
+                        <button
+                            onClick={() => navigate('/register')}
+                            className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 hover:scale-105 transition-all duration-200 border border-white/20 shadow-lg"
+                        >
+                            Register
+                        </button>
                     </div>
                 )}
-            </div>
+            </div>         
         </div>
         <div className="inline-flex items-center gap-3 bg-white/10 px-4 py-2 rounded-xl m-5">
                     <button 
