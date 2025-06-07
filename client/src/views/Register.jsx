@@ -31,7 +31,6 @@ function Register() {
         }
     }, [isSuccess, user, navigate]);
 
-    // Show error toast for 3 seconds when isError becomes true
     useEffect(() => {
         if (isError && error?.status === 422) {
             setShowErrorToast(true);
@@ -42,7 +41,6 @@ function Register() {
 
     return (
         <>
-            {/* Toast for 422 error */}
             {showErrorToast && (
                 <div className="toast toast-bottom toast-end z-50">
                   <div className="alert alert-error">

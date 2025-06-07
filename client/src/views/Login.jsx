@@ -24,7 +24,6 @@ function Login() {
         }
     }, [isSuccess, user, navigate, dispatch]);
 
-    // Show error toast for 3 seconds when isError becomes true
     useEffect(() => {
         if (isError) {
             setShowErrorToast(true);
@@ -35,7 +34,7 @@ function Login() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-900 to-purple-800">
-            {/* Toast for login error */}
+            
             {showErrorToast && (
                 <div className="toast toast-bottom toast-end z-50">
                   <div className="alert alert-error">
