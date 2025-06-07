@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
     rollupOptions: {
-      input: './index.html'
+      input: 'index.html' // Remove the './' or use the correct relative path if needed
     }
   }
 })
