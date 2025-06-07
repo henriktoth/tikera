@@ -8,6 +8,7 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [login, { data: user, isSuccess, isError, isLoading }] = useLoginMutation();
+    const [showErrorToast, setShowErrorToast] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -23,8 +24,25 @@ function Login() {
         }
     }, [isSuccess, user, navigate, dispatch]);
 
+    // Show error toast for 3 seconds when isError becomes true
+    useEffect(() => {
+        if (isError) {
+            setShowErrorToast(true);
+            const timer = setTimeout(() => setShowErrorToast(false), 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [isError]);
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-900 to-purple-800">
+            {/* Toast for login error */}
+            {showErrorToast && (
+                <div className="toast toast-bottom toast-end z-50">
+                  <div className="alert alert-error">
+                    <span>Login Failed!</span>
+                  </div>
+                </div>
+            )}
             <div className="bg-white p-8 rounded-xl shadow-2xl w-96">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-purple-900">Tikera</h1>
@@ -64,11 +82,6 @@ function Login() {
                     >
                         {isLoading ? 'Signing in...' : 'Sign in'}
                     </button>
-                    {isError && (
-                        <div className="text-red-600 text-sm mt-2 text-center">
-                            Login failed. Please check your credentials.
-                        </div>
-                    )}
                 </form>
             </div>
         </div>

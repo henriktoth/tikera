@@ -3,7 +3,6 @@ import { mdiTicketConfirmation, mdiChevronLeft, mdiChevronRight, mdiAccountCircl
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { decreaseWeek, increaseWeek } from '../store/weekSlice';
-import { clearUser } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 function Navbar(props) {
@@ -12,12 +11,9 @@ function Navbar(props) {
     const activeWeek = useSelector(state => state.week.value);
     const user = useSelector(state => state.user);
     const navigate = useNavigate();
-
-    // Dark mode state
     const [darkMode, setDarkMode] = useState(true);
 
     useEffect(() => {
-        // Set initial theme on mount
         document.documentElement.classList.toggle('dark', darkMode);
     }, [darkMode]);
 
@@ -37,10 +33,6 @@ function Navbar(props) {
         console.log('Active day: ' + dayIndex + ' | Active week: ' + activeWeek);
         }
     
-    const handleLogout = () => {
-        dispatch(clearUser());
-    };
-
     const toggleDarkMode = () => {
         setDarkMode((prev) => !prev);
         document.documentElement.classList.toggle('dark');
@@ -68,11 +60,19 @@ function Navbar(props) {
                         <div className="flex flex-wrap gap-3 mt-6 justify-center lg:justify-start">
                             {user.email === "admin@example.com" ? (
                                 <>
-                                    <a href="#" className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 hover:scale-105 transition-all duration-200 border border-white/20 shadow-lg">
-                                        Add Movie
+                                    <a
+                                      href="#"
+                                      onClick={e => { e.preventDefault(); props.onAddMovie(); }}
+                                      className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 hover:scale-105 transition-all duration-200 border border-white/20 shadow-lg"
+                                    >
+                                      Add Movie
                                     </a>
-                                    <a href="#" className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 hover:scale-105 transition-all duration-200 border border-white/20 shadow-lg">
-                                        Add Screening
+                                    <a
+                                      href="#"
+                                      onClick={e => { e.preventDefault(); props.onAddScreening(); }}
+                                      className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 hover:scale-105 transition-all duration-200 border border-white/20 shadow-lg"
+                                    >
+                                      Add Screening
                                     </a>
                                 </>
                             ) : (
@@ -85,11 +85,11 @@ function Navbar(props) {
                             <Icon path={mdiAccountCircle} size={1.2} className="text-white" />
                             <span className="text-white font-medium">{user.email}</span>
                             <button
-                                onClick={handleLogout}
-                                className="ml-2 p-1 rounded-full hover:bg-white/20 transition"
-                                title="Logout"
+                              onClick={props.onLogout}
+                              className="ml-2 p-1 rounded-full hover:bg-white/20 transition"
+                              title="Logout"
                             >
-                                <Icon path={mdiLogout} size={1} className="text-white" />
+                              <Icon path={mdiLogout} size={1} className="text-white" />
                             </button>
                         </div>
                     </>

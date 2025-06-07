@@ -85,3 +85,25 @@ body:not(.dark) {
   color: #6d28d9 !important; /* Tailwind's purple-700 */
 }
 
+/* Light mode overrides for modal, movie card, details card, seating plan */
+:root:not(.dark) .bg-neutral-800\/50,
+:root:not(.dark) .bg-neutral-800,
+:root:not(.dark) .bg-black\/70 {
+  background-color: #f3f4f6 !important; /* Tailwind gray-100 */
+}
+
+:root:not(.dark) .shadow-xl,
+:root:not(.dark) .shadow-2xl {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08) !important;
+}
+
+:root:not(.dark) .text-white {
+  color: #222 !important;
+}
+
+/* Optional: make modal border and text more visible in light mode */
+:root:not(.dark) .rounded-xl,
+:root:not(.dark) .rounded-lg {
+  border: 1px solid #e5e7eb !important;
+}
+
