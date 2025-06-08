@@ -58,7 +58,7 @@ function Navbar(props) {
                 {user?.isLoggedIn ? (
                     <>
                         <div className="flex flex-wrap gap-3 mt-6 justify-center lg:justify-start">
-                            {user.email === "admin@example.com" ? (
+                            {user.email === "admin@example.com" && (
                                 <>
                                     <a
                                       href="#"
@@ -75,11 +75,13 @@ function Navbar(props) {
                                       Add Screening
                                     </a>
                                 </>
-                            ) : (
-                                <a href="#" className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 hover:scale-105 transition-all duration-200 border border-white/20 shadow-lg">
-                                    My Reservations
-                                </a>
                             )}
+                            <a
+                              href="#"
+                              className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg text-white font-medium hover:bg-white/20 hover:scale-105 transition-all duration-200 border border-white/20 shadow-lg"
+                            >
+                              My Reservations
+                            </a>
                         </div>
                         <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl">
                             <Icon path={mdiAccountCircle} size={1.2} className="text-white" />
